@@ -43,7 +43,13 @@ fn handle_connection(mut stream: TcpStream) {
     println!("Sending {} chunks of size {}", chunks, chunk_size);
 
     for chunk in file.chunks(chunk_size) {
-        stream.write_all(chunk).unwrap();
+        match stream.write_all(chunk) {
+            Ok(_) => {}
+            Err(e) => {
+                println!("Error writing chunk: {}", e);
+                break;
+            }
+        }
         std::thread::sleep(std::time::Duration::from_secs(1));
     }
 
