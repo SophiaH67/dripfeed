@@ -2,4 +2,12 @@
 
 Just a quick web server that drip feeds a file to a client.
 
-Not async or multi-threaded, just a quick way to test timeouts and such.
+Just a nice quick way to test timeouts and such.
+
+## Usage
+
+```
+cargo run
+```
+
+Then open a browser and go to `http://localhost:7878`
