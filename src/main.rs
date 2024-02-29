@@ -18,13 +18,19 @@ fn main() {
 
 fn handle_connection(mut stream: TcpStream) {
     let buf_reader = BufReader::new(&mut stream);
-    let http_request: Vec<_> = buf_reader
+    let _http_request: Vec<_> = buf_reader
         .lines()
         .map(|result| result.unwrap())
         .take_while(|line| !line.is_empty())
         .collect();
 
-    println!("Request: {:?}", http_request);
+    println!(
+        "Handling request from {:?}",
+        match stream.peer_addr() {
+            Ok(addr) => addr.to_string(),
+            Err(_) => "unknown".to_string(),
+        }
+    );
 
     // Send the file "img.png"
     let file = std::fs::read("src/img.png").unwrap();
