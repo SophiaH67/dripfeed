@@ -11,7 +11,8 @@ fn main() {
 
         println!("Connection established!");
 
-        handle_connection(stream);
+        // Spawn a thread to handle the connection
+        std::thread::spawn(move || handle_connection(stream));
     }
 }
 
